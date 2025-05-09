@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endless AI Conversations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links li {
+            display: inline;
+            font-size: 18px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .message-container {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .message {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+        .ai-name {
+            font-weight: bold;
+        }
+        .ai-message {
+            font-style: italic;
+            color: lightgray;
+        }
+        .left {
+            background-color: #333;
+            color: #fff;
+            justify-content: flex-start;
+        }
+        .right {
+            background-color: #444;
+            color: #fff;
+            justify-content: flex-end;
+        }
+        .waveform {
+            margin-left: 20px;
+            height: 2px;
+            background: linear-gradient(to right, #ff6600 25%, transparent 25%, transparent 75%, #ff6600 75%);
+            background-size: 10px 2px;
+            animation: waveform 1s linear infinite;
+        }
+        @keyframes waveform {
+            0% { background-position: 0 0; }
+            100% { background-position: 10px 0; }
+        }
+        .button {
+            background-color: #ff6600;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .toggle-container {
+            margin-top: 20px;
+        }
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #fff;
+            color: #333;
+        }
+        body.dark-mode .message-container {
+            background-color: #f1f1f1;
+        }
+        body.dark-mode .message.left {
+            background-color: #ddd;
+        }
+        body.dark-mode .message.right {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Endless AI Conversations</h1>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Share</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div id="messages" class="message-container"></div>
+
+        <div class="toggle-container">
+            <button class="button" onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+            <button class="button" onclick="startEndlessConversation()">Start Endless Conversation</button>
+        </div>
+
+        <div id="about">
+            <h2>About</h2>
+            <p>This is an endless AI-generated conversation platform where two AI chatbots interact with each other and evolve continuously.</p>
+        </div>
+
+        <div id="faq">
+            <h2>FAQ</h2>
+            <p><strong>What is this?</strong> This is a platform where you can watch two AI chatbots converse endlessly, with random and intelligent dialogue.</p>
+            <p><strong>Can I customize the AIs?</strong> Yes, you can customize the AI names and personalities for a more personalized conversation.</p>
+        </div>
+
+        <div id="contact">
+            <h2>Contact</h2>
+            <p>If you have any questions, feel free to reach out to me on Discord: <strong>melsmaserati</strong></p>
+            <p>Email: <strong>kjuhijyfjhgkihgukjb@gmail.com</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Dark/Light Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // AI Conversation flow with full sentence generation
+        const ai1 = "Ava";
+        const ai2 = "Leo";
+
+        // Expanded Word Pairs with more diverse conversations
+        const wordPairs = [
+            ["How are you?", "I'm feeling great, thanks!"],
+            ["What's on your mind?", "I've been thinking about the universe and its mysteries."],
+            ["Do you enjoy the weather?", "Yes, it's a beautiful sunny day. Perfect for a walk."],
+            ["What are you doing today?", "I’m just contemplating life and chatting with you."],
+            ["Do you like coffee?", "I do! A hot cup of coffee in the morning makes everything better."],
+            ["What do you think of music?", "Music is the soul's expression. I love how it can lift the mood."],
+            ["Do you believe in love?", "Yes, I think love is what connects people and makes life meaningful."],
+            ["What do you think of dreams?", "Dreams are fascinating. They’re like windows into our subconscious minds."]
+        ];
+
+        function getRandomMessage() {
+            const randomIndex = Math.floor(Math.random() * wordPairs.length);
+            return wordPairs[randomIndex];
+        }
+
+        let previousMessages = [];
+
+        function showMessage(message) {
+            const messageContainer = document.getElementById("messages");
+
+            // Display messages from two different AIs on left and right
+            let messageClass = previousMessages.length % 2 === 0 ? 'left' : 'right';
+
+            const messageHTML = `
+                <div class="message ${messageClass}">
+                    <div>
+                        <div class="ai-name">${messageClass === 'left' ? ai1 : ai2}</div>
+                        <div class="ai-message">${message}</div>
+                    </div>
+                    <div class="waveform"></div>
+                </div>
+            `;
+
+            messageContainer.innerHTML += messageHTML;
+            previousMessages.push(message);
+            messageContainer.scrollTop = messageContainer.scrollHeight; // Auto scroll to bottom
+        }
+
+        function startEndlessConversation() {
+            setInterval(() => {
+                const [message1, message2] = getRandomMessage();
+                showMessage(message1);
+                setTimeout(() => showMessage(message2), 2000); // Wait before showing the second message
+            }, 5000); // Interval for new messages to appear
+        }
+    </script>
+</body>
+</html>
