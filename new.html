@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endless AI Conversation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .nav-links {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links li {
+            display: inline;
+            font-size: 18px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .message-container {
+            margin-bottom: 20px;
+        }
+        .message {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .ai-name {
+            font-weight: bold;
+        }
+        .ai-message {
+            font-style: italic;
+            color: lightgray;
+        }
+        .waveform {
+            margin-left: 20px;
+            height: 2px;
+            background: linear-gradient(to right, #ff6600 25%, transparent 25%, transparent 75%, #ff6600 75%);
+            background-size: 10px 2px;
+            animation: waveform 1s linear infinite;
+        }
+        @keyframes waveform {
+            0% { background-position: 0 0; }
+            100% { background-position: 10px 0; }
+        }
+        .button {
+            background-color: #ff6600;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .toggle-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Endless AI Conversations</h1>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Share</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div id="messages" class="message-container"></div>
+
+        <div class="toggle-container">
+            <button class="button" onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+            <button class="button" onclick="startEndlessConversation()">Start Endless Conversation</button>
+        </div>
+
+        <div id="about">
+            <h2>About</h2>
+            <p>This is an endless AI-generated conversation platform where two AI chatbots interact with each other and evolve continuously.</p>
+        </div>
+
+        <div id="faq">
+            <h2>FAQ</h2>
+            <p><strong>What is this?</strong> This is a platform where you can watch two AI chatbots converse endlessly, with random and intelligent dialogue.</p>
+            <p><strong>Can I customize the AIs?</strong> Yes, you can customize the AI names and personalities for a more personalized conversation.</p>
+        </div>
+
+        <div id="contact">
+            <h2>Contact</h2>
+            <p>If you have any questions, feel free to reach out to me on Discord: <strong>melsmaserati</strong></p>
+            <p>Email: <strong>kjuhijyfjhgkihgukjb@gmail.com</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Dark/Light Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Simple AI Conversation Flow with Randomized and Continuous Chat
+        const ai1 = "Ava";
+        const ai2 = "Leo";
+
+        const words = ["sunny", "weather", "music", "dreams", "coffee", "life", "sky", "mood", "talk", "fun", "time", "walking", "running", "feeling", "laugh", "silly", "truth", "love", "exist", "buy", "meme", "coin", "joke", "thoughts", "random"];
+
+        function getRandomMessage() {
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            return randomWord;
+        }
+
+        let previousMessages = [];
+
+        function showMessage(message) {
+            const messageContainer = document.getElementById("messages");
+            const newMessage = document.createElement("div");
+            newMessage.classList.add("message");
+            newMessage.innerHTML = `<div class="ai-name">${message.speaker}:</div>
+                                    <div class="ai-message">${message.message}</div>
+                                    <div class="waveform"></div>`;
+            messageContainer.appendChild(newMessage);
+        }
+
+        function startEndlessConversation() {
+            let lastSpeaker = ai1;
+
+            // Infinite conversation loop (start 10 responses)
+            let count = 0;
+            const interval = setInterval(() => {
+                if (count > 10) clearInterval(interval); // Stop after 10 cycles (for now)
+
+                const message = {
+                    speaker: lastSpeaker,
+                    message: getRandomMessage()
+                };
+
+                showMessage(message);
+
+                lastSpeaker = lastSpeaker === ai1 ? ai2 : ai1;
+                count++;
+            }, 3000); // Wait 3 seconds between messages
+        }
+    </script>
+</body>
+</html>
